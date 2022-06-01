@@ -1,9 +1,12 @@
 import React from 'react'
+import { Spinner } from 'react-bootstrap'
 
-const loder = () => {
+const loader = () => {
   return (
-    <div>loder</div>
+    <div>
+      <Spinner animation="border" variant="dark" /> 
+    </div>
   )
 }
 
-export default loder
+export default loader

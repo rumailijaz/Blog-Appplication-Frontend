@@ -2,17 +2,24 @@ import React, { createContext,useEffect, useContext, useState } from 'react'
 import { UserContext } from '../App'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Loader from '../loder';
+import Skeleton from '../skeleton';
 const Home = () => {
   const [data,setData] = useState([])
 
+  const [loader, setLoader] = useState(false)
 
 
   useEffect(()=>{
-    getAllPost()
-    
+
+    setTimeout(() => {
+      getAllPost()
+      setLoader(true)
+    }, 2000);
+   
 
       },[])
+
   const getAllPost = () => {
     fetch('/allposts',{
       headers:{
@@ -142,7 +149,8 @@ const Home = () => {
     <div className='home'>
             <ToastContainer />
 
-      {data.map((item)=>{
+      {loader ? <>
+        {data.map((item)=>{
         return (
           <div className='card home-card' key={item._id}>
             <h5>{item.postedBy.name}
@@ -180,6 +188,7 @@ const Home = () => {
           </div>
         )
       })}
+      </>  : <Skeleton/>}
 
     
     </div>
