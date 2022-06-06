@@ -14,7 +14,7 @@ const Navbar = () => {
    if(state){
      return (
       [
-        <li className={window.location.pathname=='/create' && 'active'}><Link to="/profile">Profile</Link></li>,
+        <li className={window.location.pathname=='/profile' && 'active'}><Link to="/profile">Profile</Link></li>,
         <li className={window.location.pathname=='/create' && 'active'}><Link to="/create">Create Post</Link></li>,
         <li> <button className="btn waves-effect waves-light #64b5f6 red darken-2"
         onClick={()=>{

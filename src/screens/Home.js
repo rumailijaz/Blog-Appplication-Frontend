@@ -1,4 +1,4 @@
-import React, { createContext,useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { UserContext } from '../App'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,7 +15,7 @@ const Home = () => {
     setTimeout(() => {
       getAllPost()
       setLoader(true)
-    }, 2000);
+    }, 1000);
    
 
       },[])
@@ -25,11 +25,10 @@ const Home = () => {
       headers:{
         "Authorization": "Bearer "+localStorage.getItem('token')
       }
-    }).then(res=>res.json()).then(result=>setData(result.posts));
+    }).then(res=>res.json()).then(result=>{console.log(result,'posts')
+      setData(result.posts)});
   
   }
-
-
 
   const {state , dispatch} = useContext(UserContext)
 
@@ -86,7 +85,6 @@ const Home = () => {
     })
   }
 
-  console.log(window.location)
 
   const makeComment =(msg, id)=>{
     fetch('/comment',{
@@ -136,11 +134,6 @@ const Home = () => {
           progress: undefined,
           });
           getAllPost()
-        const newdata=data.filter((item)=>{
-          return item._id!==result._id 
-        }) 
-        getAllPost()
-        setData(newdata)
       }
     })
   }
@@ -153,7 +146,7 @@ const Home = () => {
         {data.map((item)=>{
         return (
           <div className='card home-card' key={item._id}>
-            <h5>{item.postedBy.name}
+            <h5 style={{marginLeft:'15px', marginBottom:'15px'}}>{item.postedBy.name}
             {item.postedBy._id==state.id && 
             <i className="material-icons" onClick={()=>{deletPost(item._id)}}  style={{float:'right',cursor:'pointer',color:'red'}}>delete</i>} </h5>
            
